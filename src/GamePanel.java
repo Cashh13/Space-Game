@@ -352,6 +352,7 @@ public class GamePanel extends JFrame implements KeyListener{
             System.exit(0);
         }
     }
+    //test
 
 
     public int getrandX(){
