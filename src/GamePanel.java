@@ -25,6 +25,10 @@ public class GamePanel extends JFrame implements KeyListener{
     private boolean d;
     private boolean s;
     private boolean a;
+    private boolean w2;
+    private boolean d2;
+    private boolean s2;
+    private boolean a2;
     private boolean running = false;
     private int score;
     private int playAgain;
@@ -333,6 +337,12 @@ public class GamePanel extends JFrame implements KeyListener{
             a = false;
             s = false;
 
+            //arrow keys
+            w2 = false;
+            d2 = false;
+            a2 = false;
+            s2 = false;
+
             this.repaint();
 
             timer.start();
@@ -359,6 +369,11 @@ public class GamePanel extends JFrame implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
+        w2 = e.getKeyCode() == 38;
+      a2 = e.getKeyCode() == 37;
+      s2 = e.getKeyCode() == 40;
+      d2 = e.getKeyCode() == 39;
+
         switch (e.getKeyChar()) {
 
             case 'w':
@@ -377,6 +392,26 @@ public class GamePanel extends JFrame implements KeyListener{
 
                 d = true;
                 break;
+        }
+
+
+            //Arrow keys
+            switch (e.getKeyCode()){
+            case 38:
+                w2 = true;
+                break;
+            case 37:
+                a2 = true;
+                break;
+            case 40:
+                s2 = true;
+                break;
+            case 39:
+                d2 = true;
+                break;
+
+
+
         }
         move();
         inFrame();
@@ -409,38 +444,40 @@ public class GamePanel extends JFrame implements KeyListener{
         label.setLocation(x, y);
 
 
-
-
     }
 
     public void move() {
 
 
-        if (w && d) {
+        if (w && d || w2 && d2) {
             label.setLocation(label.getX() + 7, label.getY() - 7);
-        } else if (a && w) {
+        } else if (a && w || a2 && w2) {
             label.setLocation(label.getX() - 7, label.getY() - 7);
-        } else if (s && a) {
+        } else if (s && a || s2 && a2) {
             label.setLocation(label.getX() - 7, label.getY() + 7);
-        } else if (s && d) {
+        } else if (s && d || s2 && d2) {
             label.setLocation(label.getX() + 7, label.getY() + 7);
         } else {
 
-            if (w) {
+            if (w || w2) {
                 label.setLocation(label.getX(), label.getY() - 7); // Moving up
             }
-            if (a) {
+            if (a || a2) {
                 label.setLocation(label.getX() - 7, label.getY()); // Moving left
             }
-            if (s) {
+            if (s || s2) {
                 label.setLocation(label.getX(), label.getY() + 7); // Moving down
             }
-            if (d) {
+            if (d || d2) {
                 label.setLocation(label.getX() + 7, label.getY()); // Moving right
             }
 
         }
+
+
     }
+
+
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -457,6 +494,21 @@ public class GamePanel extends JFrame implements KeyListener{
                 break;
             case 'd':
                 d=false;
+                break;
+        }
+        switch(e.getKeyCode()) {
+
+            case 38:
+                w2=false;
+                break;
+            case 37:
+                a2=false;
+                break;
+            case 40:
+                s2=false;
+                break;
+            case 39:
+                d2=false;
                 break;
         }
         move();
